@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento teste - Vercel</title>
+</head>
+<body>
+    <div id="msg"></div>
+    <div>
+        <input id="text" type="text">
+        <button id="btn">Enviar</button>
+    </div>
+
+    <script>
+        const text = document.querySelector('#text');
+        const btn = document.querySelector('#btn');
+        const msg = document.querySelector('#msg');
+
+        btn.addEventListener('click', () => {
+            fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({msg: text.value})
+            })
+                .then(response => response.json())
+                .then(res => msg.innerHTML = `<p>${res.msg}</p>`)
+        })
+    </script>
+</body>
+</html>
