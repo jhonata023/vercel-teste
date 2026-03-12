@@ -3,13 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Documento teste - Vercel</title>
 </head>
 <body>
-    <div id="msg"></div>
-    <div>
-        <input id="text" type="text">
-        <button id="btn">Enviar</button>
+    <div class="container">
+        <div>
+            <div id="msg" style="border-radius: 10px; padding: 1rem; margin: 1rem; background: red; display: none;"></div>
+            <input id="text" type="text">
+            <button id="btn">Enviar</button>
+        </div>
+
+        <div class="row">
+            <div class="col bg-success p-2">
+                Teste, testando
+            </div>
+
+            <div class="col">
+                <div class="row bg-warning p-2">
+                    Teste, testando 2
+                </div>
+
+                <div class="row bg-danger p-2">
+                    Teste, testando 3
+                </div>
+            </div>
+        </div>
+
+        <div class="row bg-primary p-2">
+            Teste, testando 4
+        </div>
+
     </div>
 
     <script>
@@ -24,7 +48,10 @@
                 body: JSON.stringify({msg: text.value})
             })
                 .then(response => response.json())
-                .then(res => msg.innerHTML = `<p>${res.msg}</p>`)
+                .then(res => {
+                    msg.style.display = 'block';
+                    msg.innerHTML = `<p>${res.msg}</p>`;
+                })
         })
     </script>
 </body>
