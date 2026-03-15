@@ -7,33 +7,43 @@
     <title>Documento teste - Vercel</title>
 </head>
 <body>
-    <div class="container">
-        <div>
+    <div class="p-0" style="min-height: 100vh;">
+        <!-- <div>
             <div id="msg" style="border-radius: 10px; padding: 1rem; margin: 1rem; background: red; display: none;"></div>
             <input id="text" type="text">
             <button id="btn">Enviar</button>
-        </div>
+        </div> -->
+        <div class="bg-warning nav justify-content-between">
+            <li class="p-2">QuestLog</li>
 
-        <div class="row">
-            <div class="col bg-success p-2">
-                Teste, testando
+            <div class="d-flex">
+                <li class="p-2">Home</li>
+                <li class="p-2">Questões</li>
+                <li class="p-2">Estatísticas</li>
             </div>
 
-            <div class="col">
-                <div class="row bg-warning p-2">
-                    Teste, testando 2
+            <li class="p-2">LogOut</li>
+        </div>
+        <div class="row align-items-center justify-content-center container m-0" style="min-height: 90vh; min-width: 100vw;">
+            <div class="row" style="min-height: 70vh;">
+                <div class="col p-2 rounded">
+                    <div class="bg-success rounded" style="min-height: 100%;">Teste, testando</div>
                 </div>
-
-                <div class="row bg-danger p-2">
-                    Teste, testando 3
+    
+                <div class="col">
+                    <div class="row p-2" style="min-height: 50%;">
+                        <div class="bg-warning rounded" style="min-height: 100%;">Teste, testando 2</div>
+                    </div>
+    
+                    <div class="row p-2 rounded" style="min-height: 50%;">
+                        <div class="bg-danger rounded" style="min-height: 100%;">Teste, testando 3</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded">
+                    <div class="bg-primary rounded" style="min-height: 100%;">Teste, testando 4</div>
                 </div>
             </div>
         </div>
-
-        <div class="row bg-primary p-2">
-            Teste, testando 4
-        </div>
-
     </div>
 
     <script>
