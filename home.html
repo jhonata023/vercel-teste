@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Documento teste - Vercel</title>
+</head>
+<body>
+    <div class="p-0" style="min-height: 100vh;">
+        <!-- <div>
+            <div id="msg" style="border-radius: 10px; padding: 1rem; margin: 1rem; background: red; display: none;"></div>
+            <input id="text" type="text">
+            <button id="btn">Enviar</button>
+        </div> -->
+        <div class="bg-warning nav justify-content-between">
+        <a href="#" class="nav-link" style=""><li class="nav-item p-2">QuestLog</li></a>
+
+        <div class="d-flex">
+            <a href="#" class="nav-link" style=""><li class="nav-item p-2">Home</li></a>
+            <a href="#" class="nav-link" style=""><li class="nav-item p-2">Questões</li></a>
+            <a href="#" class="nav-link" style=""><li class="nav-item p-2">Estatísticas</li></a>
+        </div>
+
+        <a href="#" class="nav-link" style=""><li class="nav-item p-2">LogOut</li></a>
+    </div>
+        <div class="row align-items-center justify-content-center container m-0" style="min-height: 90vh; min-width: 100vw;">
+            <div class="row" style="min-height: 70vh;">
+                <div class="col p-2 rounded">
+                    <div class="bg-success rounded" style="min-height: 100%;">Teste, testando</div>
+                </div>
+    
+                <div class="col">
+                    <div class="row p-2" style="min-height: 50%;">
+                        <div class="bg-warning rounded" style="min-height: 100%;">Teste, testando 2</div>
+                    </div>
+    
+                    <div class="row p-2 rounded" style="min-height: 50%;">
+                        <div class="bg-danger rounded" style="min-height: 100%;">Teste, testando 3</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded">
+                    <div class="bg-primary rounded" style="min-height: 100%;">Teste, testando 4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const text = document.querySelector('#text');
+        const btn = document.querySelector('#btn');
+        const msg = document.querySelector('#msg');
+
+        btn.addEventListener('click', () => {
+            fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({msg: text.value})
+            })
+                .then(response => response.json())
+                .then(res => {
+                    msg.style.display = 'block';
+                    msg.innerHTML = `<p>${res.msg}</p>`;
+                })
+        })
+    </script>
+</body>
+</html>
