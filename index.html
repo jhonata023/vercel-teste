@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.x/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        body {font-family: roboto;}
         .alternativa {
             background-color: #6C757D;
         }
@@ -20,68 +26,120 @@
             background-color: rgb(202, 202, 202);
             color: black !important;
         }
+        .ancor-nav:hover {
+            background-color: rgb(79 70 229);
+            color: white;
+        }
     </style>
 
     <title>Questões</title>
 </head>
 <body>
     <div class="d-flex">
-        <div class="bg-light border-end d-flex flex-column" style="height: 100vh; min-width: 16rem; max-width: 16rem;">
-            <a href="#" class="nav-link p-3"><h1>QuestLog</h1></a>
-            <div class="p-3 mt-3 text-center" style="height: auto;">
-                <a href="#" class="nav-link p-2" style="">Home</a>
-                <a href="#" class="nav-link p-2" style="">Questões</a>
-                <a href="#" class="nav-link p-2" style="">Estatísticas</a>
+        <div class="offcanvas-md offcanvas-start border-end d-flex flex-column" id="sidebarMenu" style="height: 100vh; min-width: 16rem; max-width: 16rem;">
+            <div class="offcanvas-header d-md-none">
+                <!-- <h5 class="offcanvas-title">Menu</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
             </div>
-            <div class="bg-warning p-4 m-3 mt-auto rounded">
-                <p>Meta diária</p>
+            
+            <a href="#" class="nav-link p-3 d-flex">
+                <h1 style="font-family: Archivo Black; color: rgb(79 70 229);">Quest</h1>
+                <h1>Log</h1>
+            </a>
+            <div class="p-3 mt-3 text-center" style="height: auto;">
+                <a href="#" class="nav-link p-2 ancor-nav">Home</a>
+                <a href="#" class="nav-link p-2 ancor-nav">Questões</a>
+                <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
+            </div>
+            <div class="p-3 m-3 mt-auto rounded text-light" style="background-color: rgb(79 70 229)">
+                <p class="mb-0">Meta diária</p>
                 <p><b>16/50 Questões</b></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" 
+                    aria-valuemin="0" aria-valuemax="100"  style="height: 10px; background-color: rgb(129, 124, 228);">
+                    <div class="progress-bar bg-light" style="width: 32%;"></div>
+                </div>
             </div>
     
-            <a href="#" class="nav-link p-3 text-center">LogOut</a>
+            <a href="#" class="nav-link p-3 text-center ancor-nav">LogOut</a>
         </div>
-        <div class="bg-light ps-5 pt-5 pe-5">
-            <div class="border rounded p-4">
-                <div class="d-flex justify-content-between mb-4 p-2" style="width: 100%;">
-                    <div class="rounded bg-warning ps-2 pe-2" style="height: 30px;">Médio</div>
-                    <div>
-                        <p class="m-0"><b>Banca: CESBRASPE (2025)</b></p>
-                        <div class="d-flex justify-content-between" style="width: 100%;">
-                            <p class="m-0">Órgão: PF</p>
-                            |
-                            <p class="m-0">Cargo: Agente</p>
+        <div style="background-color: #efefef; width: auto;">
+            <div class="p-2 ps-4 border-bottom shadow-sm bg-light d-flex align-items-center">
+                <button class="btn btn-outline-primary d-md-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <p class="mb-0 me-1">Direito Constitucional</p>
+                <p class="mb-0 me-1">-</p>
+                <p class="mb-0 me-1">Artigo 5º</p>
+            </div>
+            <div class="ps-5 pt-5 pe-5">
+                <div class="bg-light border rounded shadow p-4">
+                    <div class="d-flex justify-content-between mb-4 p-2" style="width: 100%;">
+                        <div class="rounded bg-warning ps-2 pe-2" id="nivel" style="height: 30px;">Médio</div>
+                        <div>
+                            <p class="m-0"><b>Banca: <span id="banca">CESBRASPE </span> <span id="ano">(2025)</span></b></p>
+                            <div class="d-flex justify-content-between" style="width: 100%;">
+                                <p class="m-0">Órgão: <span id="orgao">PF</span></p>
+                                |
+                                <p class="m-0">Cargo: <span id="cargo">Agente</span></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-    
-                <div class="p-3">
-                    <p>
-                        No que se refere aos direitos e garantias fundamentais previstos na Constituição 
-                        Federal de 1988, julgue o item a seguir:
-                    </p>
-                    <p>
-                        "É plena a liberdade de associação para fins lícitos, inclusive a de caráter 
-                        paramilitar, desde que haja prévia autorização estatal."
-                    </p>
-                </div>
-    
-                <div class="d-flex flex-column text-start">
-                    <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>C</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">Certo</p>
+        
+                    <div class="p-3" id="enunciado">
+                        <p>
+                            No que se refere aos direitos e garantias fundamentais previstos na Constituição 
+                            Federal de 1988, julgue o item a seguir:
+                        </p>
+                        <p>
+                            "É plena a liberdade de associação para fins lícitos, inclusive a de caráter 
+                            paramilitar, desde que haja prévia autorização estatal."
+                        </p>
                     </div>
-                    <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>E</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">Errado</p>
+        
+                    <div class="d-flex flex-column text-start">
+                        <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>C</b></div>
+                            <p class="mb-0 p-1 ps-3" style="width: auto;">Certo</p>
+                        </div>
+                        <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>E</b></div>
+                            <p class="mb-0 p-1 ps-3" style="width: auto;">Errado</p>
+                        </div>
                     </div>
-                </div>
-    
-                <div class="mt-3 d-flex justify-content-around" style="width: 100%;">
-                    <button class="btn btn-primary">Responder</button>
-                    <button class="btn btn-outline-secondary">Pular</button>
+        
+                    <div class="mt-3 d-flex justify-content-around" style="width: 100%;">
+                        <button class="btn btn-primary">Responder</button>
+                        <button class="btn btn-outline-secondary">Pular</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const enunciado = document.querySelector('#enunciado');
+        const nivel = document.querySelector('#nivel')
+        const banca = document.querySelector('#banca');
+        const ano = document.querySelector('#ano');
+        const orgao = document.querySelector('#orgao');
+        const cargo = document.querySelector('#cargo');
+
+        fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                // body: JSON.stringify({msg: text.value})
+            })
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res);
+                    nivel.innerText = res.nivel;
+                    enunciado.innerText = res.enunciado;
+                    banca.innerText = res.banca;
+                    ano.innerText = '(' + res.ano + ')';
+                    orgao.innerText = res.orgao;
+                    cargo.innerText = res.cargo;
+
+                })
+    </script>
 </body>
 </html>
