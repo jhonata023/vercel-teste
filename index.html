@@ -191,8 +191,8 @@
             cargo.innerText = questions[0].cargo;
 
             divAlternativas.innerHTML = '';
-            if (questions[0].alternativas.lenght > 2) {
-                for (let i = 0; i < questions[0].alternativas.lenght; i++) {
+            if (questions[0].alternativas.length > 2) {
+                for (let i = 0; i < questions[0].alternativas.length; i++) {
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
                         <input type="radio" name="resposta" value="${i == 1 ? 'A': i == 2 ? 'B' : i == 3 ? 'C' : i == 4 ? 'D' : 'E'}" hidden>
@@ -202,12 +202,12 @@
                 }
             }
             else {
-                for (let i = 0; i < questions[0].alternativas.lenght; i++) {
+                for (let i = 0; i < questions[0].alternativas.length; i++) {
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <input type="radio" name="resposta" value="${questions[0].alternativas.lenght[i][0]}" hidden>
-                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions[0].alternativas.lenght[i][0]}</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas.lenght[i]}</p>
+                        <input type="radio" name="resposta" value="${questions[0].alternativas.length[i][0]}" hidden>
+                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions[0].alternativas.length[i][0]}</b></div>
+                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas.length[i]}</p>
                     </label>`
                 }
             }
