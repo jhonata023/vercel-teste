@@ -205,9 +205,9 @@
                 for (let i = 0; i < questions[0].alternativas.length; i++) {
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <input type="radio" name="resposta" value="${questions[0].alternativas.length[i][0]}" hidden>
+                        <input type="radio" name="resposta" value="${questions[0].alternativas[i][0]}" hidden>
                         <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions[0].alternativas.length[i][0]}</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas.length[i]}</p>
+                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas[i]}</p>
                     </label>`
                 }
             }
