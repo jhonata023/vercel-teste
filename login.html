@@ -97,6 +97,14 @@
                     password: password.value
                 };
 
+                fetch('urlqualquerdoback/cadastro', {
+                    method: POST,
+                    headers: {'Content-Type' : 'application/json'},
+                    body: JSON.stringify(newUser)
+                })
+                    .then(response => response.json())
+                    .then(res => console.log(res.msg))
+
                 console.log('Usuário cadastrado com sucesso');
                 console.log(newUser);
             } else {

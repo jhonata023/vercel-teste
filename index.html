@@ -26,6 +26,14 @@
             background-color: rgb(202, 202, 202);
             color: black !important;
         }
+        .resposta input:checked + .alternativa {
+            background-color: rgb(202, 202, 202);
+            color: black !important;
+        }
+        .resposta:has(input:checked) {
+            background-color: #6C757D;
+            color: white;
+        }
         .ancor-nav:hover {
             background-color: rgb(79 70 229);
             color: white;
@@ -46,18 +54,56 @@
                 <h1 style="font-family: Archivo Black; color: rgb(79 70 229);">Quest</h1>
                 <h1>Log</h1>
             </a>
-            <div class="p-3 mt-3 text-center" style="height: auto;">
+            <div class="p-3 text-center" style="height: auto;">
                 <a href="#" class="nav-link p-2 ancor-nav">Home</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Questões</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
+                <a href="#" class="nav-link p-2 ancor-nav" data-bs-toggle="collapse" data-bs-target="#filtersList"
+                    aria-expanded="false" aria-controls="filtersList">Filtros</a>
             </div>
-            <div class="p-3 m-3 mt-auto rounded text-light" style="background-color: rgb(79 70 229)">
-                <p class="mb-0">Meta diária</p>
+            <div class="ps-3 pe-3 pb-3 collapse" id="filtersList">
+                <form action="" class="border rounded p-2" style="background-color: #efefef;">
+                    <select class="form-select-sm col-12 m-1" name="materia" id="filterMateria">
+                        <option value="">Matéria</option>
+                        <option value="Direito Constitucional">Direito Constitucional</option>
+                        <option value="Português">Português</option>
+                    </select>
+                    <select class="form-select-sm col-12 m-1" name="Assunto" id="filterAssunto">
+                        <option value="">Assunto</option>
+                        <option value="Artigo 5º">Artigo 5º</option>
+                        <option value="Direitos e Garantias Fundamentais">Direitos e Garantias Fundamentais</option>
+                    </select>
+                    <select class="form-select-sm col-5 m-1" name="Banca" id="filterBanca">
+                        <option value="">Banca</option>
+                        <option value="CESPE/CEBRASPE">CESPE/CEBRASPE</option>
+                        <option value="CRS">CRS</option>
+                    </select>
+                    <select class="form-select-sm col-5 m-1" name="Orgao" id="filterOrgao">
+                        <option value="">Órgão</option>
+                        <option value="PF">PF</option>
+                        <option value="PMMG">PMMG</option>
+                    </select>
+                    <select class="form-select-sm col-5 m-1" name="Cargo" id="filterCargo">
+                        <option value="">Cargo</option>
+                        <option value="Agente">Agente</option>
+                        <option value="Soldado">Soldado</option>
+                    </select>
+                    <select class="form-select-sm col-5 m-1" name="Ano" id="filterAno">
+                        <option value="">Ano</option>
+                        <option value="2025º">2025</option>
+                        <option value="2022">2022</option>
+                    </select>
+
+                    <input type="submit" class="btn btn-primary col-12">
+                </form>
+            </div>
+            <div class="p-3 m-3 mt-auto rounded text-light" id="dailyTarget" style="background-color: rgb(79 70 229)">
+                <!-- <p class="mb-0">Meta diária</p>
                 <p><b>16/50 Questões</b></p>
                 <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" 
                     aria-valuemin="0" aria-valuemax="100"  style="height: 10px; background-color: rgb(129, 124, 228);">
                     <div class="progress-bar bg-light" style="width: 32%;"></div>
-                </div>
+                </div> -->
             </div>
     
             <a href="#" class="nav-link p-3 text-center ancor-nav">LogOut</a>
@@ -86,30 +132,35 @@
                     </div>
         
                     <div class="p-3" id="enunciado">
-                        <p>
+                        <!-- <p>
                             No que se refere aos direitos e garantias fundamentais previstos na Constituição 
                             Federal de 1988, julgue o item a seguir:
                         </p>
                         <p>
                             "É plena a liberdade de associação para fins lícitos, inclusive a de caráter 
                             paramilitar, desde que haja prévia autorização estatal."
-                        </p>
+                        </p> -->
                     </div>
         
-                    <div class="d-flex flex-column text-start">
-                        <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                    <div class="d-flex flex-column text-start" id="alternativas">
+                        <!-- <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <input type="radio" name="resposta" value="C" hidden>
                             <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>C</b></div>
                             <p class="mb-0 p-1 ps-3" style="width: auto;">Certo</p>
-                        </div>
-                        <div class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                        </label>
+                        <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <input type="radio" name="resposta" value="E" hidden>
                             <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>E</b></div>
                             <p class="mb-0 p-1 ps-3" style="width: auto;">Errado</p>
-                        </div>
+                        </label> -->
                     </div>
         
                     <div class="mt-3 d-flex justify-content-around" style="width: 100%;">
-                        <button class="btn btn-primary">Responder</button>
-                        <button class="btn btn-outline-secondary">Pular</button>
+                        <button class="btn btn-primary" id="resolveQuest">Responder</button>
+                        <div>
+                            <button class="btn btn-outline-secondary" id="previusQuest"><</button>
+                            <button class="btn btn-outline-secondary" id="nextQuest">></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,28 +169,70 @@
 
     <script>
         const enunciado = document.querySelector('#enunciado');
-        const nivel = document.querySelector('#nivel')
+        const nivel = document.querySelector('#nivel');
         const banca = document.querySelector('#banca');
         const ano = document.querySelector('#ano');
         const orgao = document.querySelector('#orgao');
         const cargo = document.querySelector('#cargo');
+        const divAlternativas = document.querySelector('#alternativas');
 
+        const dailyTarget = document.querySelector('#dailyTarget');
+
+        const previusQuest = document.querySelector('#previusQuest');
+        const nextQuest = document.querySelector('#nextQuest');
+        const resolveQuest = document.querySelector('#resolveQuest');
+
+        const renderQuestion = questions => {
+            nivel.innerText = questions[0].nivel;
+                enunciado.innerText = questions[0].enunciado;
+                banca.innerText = questions[0].banca;
+                ano.innerText = '(' + questions[0].ano + ')';
+                orgao.innerText = questions[0].orgao;
+                cargo.innerText = questions[0].cargo;
+
+                divAlternativas.innerHTML = '';
+                if (questions[0].alternativas.lenght > 2) {
+                    for (let i = 0; i < questions[0].alternativas.lenght; i++) {
+                        divAlternativas.innerHTML += `
+                        <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <input type="radio" name="resposta" value="${i == 1 ? 'A': i == 2 ? 'B' : i == 3 ? 'C' : i == 4 ? 'D' : 'E'}" hidden>
+                            <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${i == 1 ? 'A': i == 2 ? 'B' : i == 3 ? 'C' : i == 4 ? 'D' : 'E'}</b></div>
+                            <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas[i]}</p>
+                        </label>`
+                    }
+                }
+                else {
+                    for (let i = 0; i < questions[0].alternativas.lenght; i++) {
+                        divAlternativas.innerHTML += `
+                        <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
+                            <input type="radio" name="resposta" value="${questions[0].alternativas.lenght[i][0]}" hidden>
+                            <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions[0].alternativas.lenght[i][0]}</b></div>
+                            <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas.lenght[i]}</p>
+                        </label>`
+                    }
+                }
+        }
+        const renderProgress = progress => {
+            const base = 100 / progress.dailyTarget;
+            dailyTarget.innerHTML = `
+            <p class="mb-0">Meta diária</p>
+            <p><b>${progress.actualQuests}/${progress.dailyTarget} Questões</b></p>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" 
+                aria-valuemin="0" aria-valuemax="100"  style="height: 10px; background-color: rgb(129, 124, 228);">
+                <div class="progress-bar bg-light" style="width: ${base*progress.actualQuests}%;"></div>
+            </div>`
+        }
+        
         fetch('/api/server', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                // body: JSON.stringify({msg: text.value})
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            // body: JSON.stringify({msg: text.value})
+        })
+            .then(response => response.json())
+            .then(res => {
+                renderQuestion(res);
+                renderProgress(res.progressUser[0])
             })
-                .then(response => response.json())
-                .then(res => {
-                    console.log(res);
-                    nivel.innerText = res.nivel;
-                    enunciado.innerText = res.enunciado;
-                    banca.innerText = res.banca;
-                    ano.innerText = '(' + res.ano + ')';
-                    orgao.innerText = res.orgao;
-                    cargo.innerText = res.cargo;
-
-                })
     </script>
 </body>
 </html>
