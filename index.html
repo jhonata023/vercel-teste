@@ -55,7 +55,7 @@
                 <h1>Log</h1>
             </a>
             <div class="p-3 text-center" style="height: auto;">
-                <a href="#" class="nav-link p-2 ancor-nav">Home</a>
+                <a href="/home.html" class="nav-link p-2 ancor-nav">Home</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Questões</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
                 <a href="#" class="nav-link p-2 ancor-nav" data-bs-toggle="collapse" data-bs-target="#filtersList"
@@ -223,7 +223,29 @@
                 <div class="progress-bar bg-light" style="width: ${base*progress.actualQuests}%;"></div>
             </div>`
         }
-        
+
+        resolveQuest.addEventListener('click', () => {
+            fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify()
+            })
+        });
+        nextQuest.addEventListener('click', () => {
+            fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify()
+            })
+        });
+        previusQuest.addEventListener('click', () => {
+            fetch('/api/server', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify()
+            })
+        });
+
         fetch('/api/server', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
