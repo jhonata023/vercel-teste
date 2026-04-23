@@ -35,7 +35,15 @@ export default function handler(req, res) {
     // }
 
     if (req.method === 'POST') {
-        return res.status(200).json(bd);
+        if (req.body.op == 'renderQuestion') {
+            return res.status(200).json(bd);
+        } if (req.body.op == 'resolveQuest') {
+            
+        }  if (req.body.op == 'nextQuest') {
+
+        }  if (req.body.op == 'previousQuest') {
+
+        } 
     }
 
     return res.status(405).json({ error: 'Método não permitido' });

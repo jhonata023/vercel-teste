@@ -117,10 +117,13 @@
                 <p class="mb-0 me-1">-</p>
                 <p class="mb-0 me-1">Artigo 5º</p>
             </div>
-            <div class="ps-5 pt-5 pe-5">
+            <div class="ps-md-5 pt-md-5 pe-md-5">
                 <div class="bg-light border rounded shadow p-4">
                     <div class="d-flex justify-content-between mb-4 p-2" style="width: 100%;">
-                        <div class="rounded bg-warning ps-2 pe-2" id="nivel" style="height: 30px;">Médio</div>
+                        <div class="rounded bg-warning ps-2 pe-2" style="height: 30px;">
+                            <p id="nivel" class="mb-1">Médio</p>
+                            <div style="font-size: 12px;">Questão: <span id="code">1</span></div>
+                        </div>
                         <div>
                             <p class="m-0"><b>Banca: <span id="banca">CESBRASPE </span> <span id="ano">(2025)</span></b></p>
                             <div class="d-flex justify-content-between" style="width: 100%;">
@@ -130,6 +133,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="res-msg" class="p-2 rounded"></div>
         
                     <div class="p-3" id="enunciado">
                         <!-- <p>
@@ -174,6 +179,7 @@
         const ano = document.querySelector('#ano');
         const orgao = document.querySelector('#orgao');
         const cargo = document.querySelector('#cargo');
+        const code = document.querySelector('#code');
         const divAlternativas = document.querySelector('#alternativas');
 
         const dailyTarget = document.querySelector('#dailyTarget');
@@ -189,6 +195,7 @@
             ano.innerText = '(' + questions[0].ano + ')';
             orgao.innerText = questions[0].orgao;
             cargo.innerText = questions[0].cargo;
+            code.innerText = questions[0].id;
 
             divAlternativas.innerHTML = '';
             if (questions[0].alternativas.length > 2) {
@@ -228,8 +235,20 @@
             fetch('/api/server', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify()
+                body: JSON.stringify({
+                    op: 'resolveQuest',
+                    resposta : document.querySelector('input[name="resposta"]:checked').value,
+                    idQuest: code.innerText
+                })
             })
+                .then(response => response.json())
+                .then(res => {
+                    const resMsg = document.querySelector('#res-msg');
+                    resMsg.innerText == res.msg;
+
+                    if (res.msg === 'Parabéns, você acertou !') resMsg.style.backgroundColor = 'rgba(59, 174, 59, 0.596);';
+                    else resMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.4);';
+                })
         });
         nextQuest.addEventListener('click', () => {
             fetch('/api/server', {
@@ -249,7 +268,7 @@
         fetch('/api/server', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            // body: JSON.stringify({msg: text.value})
+            body: JSON.stringify({op: 'renderQuestion'})
         })
             .then(response => response.json())
             .then(res => {
