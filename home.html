@@ -4,43 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Documento teste - Vercel</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.x/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Página Inicial</title>
+
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        body {font-family: roboto;}
+        .ancor-nav:hover {
+            background-color: rgb(79 70 229);
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div class="p-0" style="min-height: 100vh;">
-        <!-- <div>
-            <div id="msg" style="border-radius: 10px; padding: 1rem; margin: 1rem; background: red; display: none;"></div>
-            <input id="text" type="text">
-            <button id="btn">Enviar</button>
-        </div> -->
-        <div class="bg-warning nav justify-content-between">
-        <a href="#" class="nav-link"><li class="nav-item p-2">QuestLog</li></a>
-
-        <div class="d-flex">
-            <a href="#" class="nav-link"><li class="nav-item p-2">Home</li></a>
-            <a href="#" class="nav-link"><li class="nav-item p-2">Questões</li></a>
-            <a href="#" class="nav-link"><li class="nav-item p-2">Estatísticas</li></a>
+    <div class="d-flex" style="min-height: 100vh;">
+        <div class="offcanvas-md offcanvas-start border-end d-flex flex-column" id="sidebarMenu" style="height: 100vh;">
+            <div class="offcanvas-header d-md-none">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+            </div>
+            
+            <a href="#" class="nav-link p-3 d-flex">
+                <h1 style="font-family: Archivo Black; color: rgb(79 70 229);">Quest</h1>
+                <h1>Log</h1>
+            </a>
+            <div class="p-3 text-center" style="height: auto;">
+                <a href="/home.html" class="nav-link p-2 ancor-nav">Home</a>
+                <a href="/index.html" class="nav-link p-2 ancor-nav">Questões</a>
+                <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
+            </div>
+            <div class="p-3 m-3 mt-auto rounded text-light" id="dailyTarget" style="background-color: rgb(79 70 229)">
+            </div>
+    
+            <a href="#" class="nav-link p-3 text-center ancor-nav">LogOut</a>
         </div>
-
-        <a href="#" class="nav-link"><li class="nav-item p-2">LogOut</li></a>
-    </div>
-        <div class="row align-items-center justify-content-center container m-0" style="min-height: 90vh; min-width: 100vw;">
-            <div class="row" style="min-height: 70vh;">
+        
+        <div class="container p-0" style="background-color: #efefef;">
+            <div class="p-2 ps-4 border-bottom shadow-sm bg-light d-flex align-items-center">
+                <button class="btn btn-outline-primary d-md-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <p class="mb-0 me-1">Bem Vindo <span id="welcomeName"></span></p>
+            </div>
+            
+            <div class="row container">
                 <div class="col p-2 rounded">
-                    <div class="bg-success rounded" style="min-height: 100%;">Teste, testando</div>
+                    <div class="shadow rounded p-3" style="min-height: 100%;">Teste, testando</div>
                 </div>
     
                 <div class="col">
                     <div class="row p-2" style="min-height: 50%;">
-                        <div class="bg-warning rounded" style="min-height: 100%;">Teste, testando 2</div>
+                        <div class="shadow rounded p-3" style="min-height: 100%;">Teste, testando 2</div>
                     </div>
     
                     <div class="row p-2 rounded" style="min-height: 50%;">
-                        <div class="bg-danger rounded" style="min-height: 100%;">Teste, testando 3</div>
+                        <div class="shadow rounded p-3" style="min-height: 100%;">Teste, testando 3</div>
                     </div>
                 </div>
                 <div class="p-2 rounded">
-                    <div class="bg-primary rounded" style="min-height: 100%;">Teste, testando 4</div>
+                    <div class="shadow rounded p-3" style="min-height: 100%;">Teste, testando 4</div>
                 </div>
             </div>
         </div>
@@ -50,19 +74,17 @@
         const text = document.querySelector('#text');
         const btn = document.querySelector('#btn');
         const msg = document.querySelector('#msg');
+        const welcomeName = document.querySelector('#welcomeName');
 
-        btn.addEventListener('click', () => {
-            fetch('/api/server', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({msg: text.value})
-            })
-                .then(response => response.json())
-                .then(res => {
-                    msg.style.display = 'block';
-                    msg.innerHTML = `<p>${res.msg}</p>`;
-                })
+        fetch('/api/server', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({op: 'home', id: 1})
         })
+            .then(response => response.json())
+            .then(res => {
+                welcomeName.innerText = res.name + ' ' + res.lastName
+            })
     </script>
 </body>
 </html>

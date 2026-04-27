@@ -108,7 +108,7 @@
     
             <a href="#" class="nav-link p-3 text-center ancor-nav">LogOut</a>
         </div>
-        <div style="background-color: #efefef; width: auto;">
+        <div class="container p-0" style="background-color: #efefef; width: 100%;">
             <div class="p-2 ps-4 border-bottom shadow-sm bg-light d-flex align-items-center">
                 <button class="btn btn-outline-primary d-md-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                     <i class="bi bi-list"></i>
@@ -163,7 +163,7 @@
                     <div class="mt-3 d-flex justify-content-around" style="width: 100%;">
                         <button class="btn btn-primary" id="resolveQuest">Responder</button>
                         <div>
-                            <button class="btn btn-outline-secondary" id="previusQuest"><</button>
+                            <!-- <button class="btn btn-outline-secondary" id="previusQuest"><</button> -->
                             <button class="btn btn-outline-secondary" id="nextQuest">></button>
                         </div>
                     </div>
@@ -247,23 +247,32 @@
                     resMsg.innerText == res.msg;
 
                     if (res.msg === 'Parabéns, você acertou !') resMsg.style.backgroundColor = 'rgba(59, 174, 59, 0.596);';
-                    else resMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.4);';
+                    else {
+                        resMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.4);';
+                        
+                        for (let i = 0; i < divAlternativas.children.length; i++) {
+                            const element = divAlternativas.children[i];
+                            if(res.correct == element.children[0].value) element.style.backgroundColor == 'rgba(59, 174, 59, 0.596);';
+                        }
+                    }
                 })
-        });
+            });
         nextQuest.addEventListener('click', () => {
             fetch('/api/server', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify()
+                body: JSON.stringify({op: 'nextQuest',idQuest: code.innerText})
             })
+            .then(response => response.json())
+            .then(res => console.log(res))
         });
-        previusQuest.addEventListener('click', () => {
-            fetch('/api/server', {
-                method: 'POST',
-                headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify()
-            })
-        });
+        // previusQuest.addEventListener('click', () => {
+        //     fetch('/api/server', {
+        //         method: 'POST',
+        //         headers: {'Content-Type' : 'application/json'},
+        //         body: JSON.stringify()
+        //     })
+        // });
 
         fetch('/api/server', {
             method: 'POST',
