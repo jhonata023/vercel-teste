@@ -237,7 +237,7 @@
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({
                     op: 'resolveQuest',
-                    resposta : document.querySelector('input[name="resposta"]:checked').value,
+                    userAnswer : document.querySelector('input[name="resposta"]:checked').value,
                     idQuest: code.innerText
                 })
             })

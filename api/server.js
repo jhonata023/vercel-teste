@@ -23,10 +23,22 @@ export default function handler(req, res) {
         if (req.body.op == 'renderQuestion') {
             return res.status(200).json(bd);
         } if (req.body.op == 'resolveQuest') {
-            const question = bd.questions.find(quest => quest.id == req.body.idQuest);
-
-            if (question) return res.status(200).json({msg: 'Parabéns, você acertou !'})
-            else return res.status(200).json({msg: 'Você errou. Tente novamente !', correct: question.resposta})
+            const question = bd.questions.find(quest => quest.id == Number(req.body.idQuest));
+            
+            if (!question) return res.status(404).json({ msg: 'Questão não encontrada!' });
+            if (req.body.userAnswer === question.resposta) {
+                return res.status(200).json({ 
+                    msg: 'Parabéns, você acertou!',
+                    explicacao: question.explicacao 
+                });
+            }
+            else {
+                return res.status(200).json({ 
+                    msg: 'Você errou. Tente novamente!', 
+                    correct: question.resposta,
+                    explicacao: question.explicacao
+                });
+            }
         } if (req.body.op == 'nextQuest') {
             return res.status(200).json({msg: 'Conexão com servidor estabelecida.'})
         } if (req.body.op == 'home') {
