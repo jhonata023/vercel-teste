@@ -244,15 +244,15 @@
                 .then(response => response.json())
                 .then(res => {
                     const resMsg = document.querySelector('#res-msg');
-                    resMsg.innerText == res.msg;
+                    resMsg.innerText = res.msg;
 
-                    if (res.msg === 'Parabéns, você acertou !') resMsg.style.backgroundColor = 'rgba(59, 174, 59, 0.596);';
+                    if (res.valid) resMsg.style.backgroundColor = 'rgba(59, 174, 59, 0.596)';
                     else {
-                        resMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.4);';
+                        resMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
                         
                         for (let i = 0; i < divAlternativas.children.length; i++) {
                             const element = divAlternativas.children[i];
-                            if(res.correct == element.children[0].value) element.style.backgroundColor == 'rgba(59, 174, 59, 0.596);';
+                            if(res.correct == element.children[0].value) element.style.backgroundColor = 'rgba(59, 174, 59, 0.596)';
                         }
                     }
                 })
