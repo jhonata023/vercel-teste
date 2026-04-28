@@ -57,6 +57,7 @@
             <div class="p-3 text-center" style="height: auto;">
                 <a href="/home.html" class="nav-link p-2 ancor-nav">Home</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Questões</a>
+                <a href="/manageQuest.html" class="nav-link p-2 ancor-nav">Gerenciar Questões</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
                 <a href="#" class="nav-link p-2 ancor-nav" data-bs-toggle="collapse" data-bs-target="#filtersList"
                     aria-expanded="false" aria-controls="filtersList">Filtros</a>
@@ -200,10 +201,12 @@
             divAlternativas.innerHTML = '';
             if (questions[0].alternativas.length > 2) {
                 for (let i = 0; i < questions[0].alternativas.length; i++) {
+                    const letras = ['A', 'B', 'C', 'D', 'E'];
+                    const letraAtual = letras[i]
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <input type="radio" name="resposta" value="${i == 1 ? 'A': i == 2 ? 'B' : i == 3 ? 'C' : i == 4 ? 'D' : 'E'}" hidden>
-                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${i == 1 ? 'A': i == 2 ? 'B' : i == 3 ? 'C' : i == 4 ? 'D' : 'E'}</b></div>
+                        <input type="radio" name="resposta" value="${letraAtual}" hidden>
+                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${letraAtual}</b></div>
                         <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas[i]}</p>
                     </label>`
                 }
@@ -253,6 +256,7 @@
                         for (let i = 0; i < divAlternativas.children.length; i++) {
                             const element = divAlternativas.children[i];
                             if(res.correct == element.children[0].value) element.style.backgroundColor = 'rgba(59, 174, 59, 0.596)';
+                            if(res.userAnswer == element.children[0].value) element.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
                         }
                     }
                 })
@@ -261,10 +265,10 @@
             fetch('/api/server', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({op: 'nextQuest',idQuest: code.innerText})
+                body: JSON.stringify({op: 'nextQuest',idQuest: code.innerText, idUser: 1})
             })
             .then(response => response.json())
-            .then(res => console.log(res))
+            .then(res => renderQuestion([res.nextQuestion]))
         });
         // previusQuest.addEventListener('click', () => {
         //     fetch('/api/server', {
