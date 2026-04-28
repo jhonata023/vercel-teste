@@ -83,9 +83,9 @@ export default function handler(req, res) {
 
             const alternativasProcessadas = validation.filter(item => item && item.trim() !== "");
 
-            if (alternativasProcessadas.length < 2) {
-                return res.status(400).json({ msg: "A questão deve ter pelo menos 2 alternativas preenchidas." });
-            }
+            // if (alternativasProcessadas.length < 2) {
+            //     return res.status(400).json({ msg: "A questão deve ter pelo menos 2 alternativas preenchidas." });
+            // }
 
             const newQuestion = {
                 id: newId,
