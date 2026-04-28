@@ -100,7 +100,7 @@ export default function handler(req, res) {
             
             bd.questions.push(newQuestion);
             bd.progressUser.forEach(progress => {
-                progress.queue.push(novaQuestao.id);
+                progress.queue.push(newQuestion.id);
             });
             res.status(201).json({msg: 'Questão Cadastrada com sucesso !'});
         }
