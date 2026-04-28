@@ -84,7 +84,7 @@ export default function handler(req, res) {
             const user = bd.user.find(user => user.id == req.body.id);
             res.status(200).json(user);
         } if (req.body.op == 'newQuestion') {
-            const {banca, ano, cargo, enunciado, altA, altB, altC, altD, altE, resposta, explicacao} = req.body;
+            const {banca, ano, orgao, cargo, enunciado, altA, altB, altC, altD, altE, resposta, explicacao, nivel} = req.body;
             const newId = bd.questions.length > 0 ? Math.max(...bd.questions.map(q => q.id)) + 1 : 1;
             const validation = [altA, altB, altC, altD, altE];
 
@@ -102,6 +102,7 @@ export default function handler(req, res) {
                 enunciado,
                 alternativas: alternativasProcessadas, 
                 resposta,
+                nivel,
                 explicacao
             };
             
