@@ -56,7 +56,7 @@
             </a>
             <div class="p-3 text-center" style="height: auto;">
                 <a href="/home.html" class="nav-link p-2 ancor-nav">Home</a>
-                <a href="#" class="nav-link p-2 ancor-nav">Questões</a>
+                <a href="/index.html" class="nav-link p-2 ancor-nav">Questões</a>
                 <a href="/manageQuest.html" class="nav-link p-2 ancor-nav">Gerenciar Questões</a>
                 <a href="#" class="nav-link p-2 ancor-nav">Estatísticas</a>
                 <a href="#" class="nav-link p-2 ancor-nav" data-bs-toggle="collapse" data-bs-target="#filtersList"
@@ -122,15 +122,15 @@
                 <div class="bg-light border rounded shadow p-4">
                     <div class="d-flex justify-content-between mb-4 p-2" style="width: 100%;">
                         <div class="rounded bg-warning ps-2 pe-2" style="height: 30px;">
-                            <p id="nivel" class="mb-1">Médio</p>
-                            <div style="font-size: 12px;">Questão: <span id="code">1</span></div>
+                            <p id="nivel" class="mb-1"></p>
+                            <div style="font-size: 12px;">Questão: <span id="code"></span></div>
                         </div>
                         <div>
-                            <p class="m-0"><b>Banca: <span id="banca">CESBRASPE </span> <span id="ano">(2025)</span></b></p>
+                            <p class="m-0"><b>Banca: <span id="banca"> </span> <span id="ano">()</span></b></p>
                             <div class="d-flex justify-content-between" style="width: 100%;">
-                                <p class="m-0 me-1">Órgão: <span id="orgao">PF</span></p>
+                                <p class="m-0 me-1">Órgão: <span id="orgao"></span></p>
                                 |
-                                <p class="m-0 ms-1">Cargo: <span id="cargo">Agente</span></p>
+                                <p class="m-0 ms-1">Cargo: <span id="cargo"></span></p>
                             </div>
                         </div>
                     </div>
@@ -188,36 +188,37 @@
         const previusQuest = document.querySelector('#previusQuest');
         const nextQuest = document.querySelector('#nextQuest');
         const resolveQuest = document.querySelector('#resolveQuest');
+        const resMsg = document.querySelector('#res-msg');
 
         const renderQuestion = questions => {
-            nivel.innerText = questions[0].nivel;
-            enunciado.innerText = questions[0].enunciado;
-            banca.innerText = questions[0].banca;
-            ano.innerText = '(' + questions[0].ano + ')';
-            orgao.innerText = questions[0].orgao;
-            cargo.innerText = questions[0].cargo;
-            code.innerText = questions[0].id;
+            nivel.innerText = questions.nivel;
+            enunciado.innerText = questions.enunciado;
+            banca.innerText = questions.banca;
+            ano.innerText = '(' + questions.ano + ')';
+            orgao.innerText = questions.orgao;
+            cargo.innerText = questions.cargo;
+            code.innerText = questions.id;
 
             divAlternativas.innerHTML = '';
-            if (questions[0].alternativas.length > 2) {
-                for (let i = 0; i < questions[0].alternativas.length; i++) {
+            if (questions.alternativas.length > 2) {
+                for (let i = 0; i < questions.alternativas.length; i++) {
                     const letras = ['A', 'B', 'C', 'D', 'E'];
                     const letraAtual = letras[i]
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
                         <input type="radio" name="resposta" value="${letraAtual}" hidden>
                         <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${letraAtual}</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas[i]}</p>
+                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions.alternativas[i]}</p>
                     </label>`
                 }
             }
             else {
-                for (let i = 0; i < questions[0].alternativas.length; i++) {
+                for (let i = 0; i < questions.alternativas.length; i++) {
                     divAlternativas.innerHTML += `
                     <label class="resposta border rounded p-2 d-flex mb-3" style="width: 100%;">
-                        <input type="radio" name="resposta" value="${questions[0].alternativas[i][0]}" hidden>
-                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions[0].alternativas[i][0]}</b></div>
-                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions[0].alternativas[i]}</p>
+                        <input type="radio" name="resposta" value="${questions.alternativas[i][0]}" hidden>
+                        <div class="alternativa border rounded p-1 ps-2 pe-2 text-light"><b>${questions.alternativas[i][0]}</b></div>
+                        <p class="mb-0 p-1 ps-3" style="width: auto;">${questions.alternativas[i]}</p>
                     </label>`
                 }
             }
@@ -240,12 +241,13 @@
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({
                     userAnswer : document.querySelector('input[name="resposta"]:checked').value,
-                    idQuest: code.innerText
+                    idQuest: code.innerText,
+                    idUser: 1
                 })
             })
                 .then(response => response.json())
                 .then(res => {
-                    const resMsg = document.querySelector('#res-msg');
+                    resMsg.classList.remove('d-none');
                     resMsg.innerText = res.msg;
 
                     if (res.valid) resMsg.style.backgroundColor = 'rgba(59, 174, 59, 0.596)';
@@ -267,17 +269,21 @@
                 body: JSON.stringify({idQuest: code.innerText, idUser: 1})
             })
             .then(response => response.json())
-            .then(res => renderQuestion([res.nextQuestion]))
+            .then(res => {
+                resMsg.classList.add('d-none');
+                renderQuestion(res.nextQuestion)
+            })
         });
 
         fetch('/api/questions/render', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({idUser: 1})
         })
             .then(response => response.json())
             .then(res => {
-                renderQuestion(res.questions);
-                renderProgress(res.progressUser[0])
+                renderQuestion(res.question);
+                renderProgress(res.progressUser);
             })
     </script>
 </body>
