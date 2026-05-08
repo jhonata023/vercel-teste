@@ -235,11 +235,10 @@
         }
 
         resolveQuest.addEventListener('click', () => {
-            fetch('/api/server', {
+            fetch('/api/questions/resolve', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({
-                    op: 'resolveQuest',
                     userAnswer : document.querySelector('input[name="resposta"]:checked').value,
                     idQuest: code.innerText
                 })
@@ -262,19 +261,18 @@
                 })
             });
         nextQuest.addEventListener('click', () => {
-            fetch('/api/server', {
+            fetch('/api/questions/nextQuest', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({op: 'nextQuest',idQuest: code.innerText, idUser: 1})
+                body: JSON.stringify({idQuest: code.innerText, idUser: 1})
             })
             .then(response => response.json())
             .then(res => renderQuestion([res.nextQuestion]))
         });
 
-        fetch('/api/server', {
+        fetch('/api/questions/render', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({op: 'renderQuestion'})
         })
             .then(response => response.json())
             .then(res => {

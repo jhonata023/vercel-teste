@@ -77,10 +77,10 @@
         const msg = document.querySelector('#msg');
         const welcomeName = document.querySelector('#welcomeName');
 
-        fetch('/api/server', {
+        fetch('/api/home', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({op: 'home', id: 1})
+            body: JSON.stringify({id: 1})
         })
             .then(response => response.json())
             .then(res => {
