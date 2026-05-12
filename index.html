@@ -274,6 +274,10 @@
                 renderQuestion(res.nextQuestion)
             })
         });
+        fetch('/api/route', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+        })
 
         fetch('/api/questions/render', {
             method: 'POST',

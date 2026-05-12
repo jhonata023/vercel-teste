@@ -13,6 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongo": "^0.1.0",
+    "mongodb": "^7.2.0",
+    "vercel": "^53.4.0"
   }
 }
