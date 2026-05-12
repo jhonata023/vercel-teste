@@ -1,12 +1,23 @@
 import bd from '../../lib/bd.js';
+import clientPromise from "../../lib/mongodb.js";
+import { ObjectId } from "mongodb";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
     try {
-        const question = bd.questions.find(quest => quest.id == Number(req.body.idQuest));
         const idUser = req.body.idUser;
+
         const progress = bd.progressUser.find(p => p.idUser === Number(idUser));
-            
+        
+        const client = await clientPromise;
+        const db = client.db("questlog");
+        const idQuest = req.body.idQuest
+        
+        const question = await db
+            .collection("questions")
+            .findOne({_id: new ObjectId(idQuest)})
+
         if (!question) return res.status(404).json({ msg: 'Questão não encontrada!', valid: false});
+            
         if (req.body.userAnswer === question.resposta) {
             progress.queue.shift();
             progress.actualQuests += 1;
@@ -26,6 +37,7 @@ export default function handler(req, res) {
                 userAnswer: req.body.userAnswer
             });
         }
+
     } catch (error) {
         console.error(error);
 

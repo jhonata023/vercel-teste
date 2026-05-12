@@ -103,28 +103,28 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="alternativaA" class="form-label">Alternativa A</label>
-                        <input type="text" name="alternativaA" class="form-control">
+                        <label for="altA" class="form-label">Alternativa A</label>
+                        <input type="text" name="altA" class="form-control">
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="alternativaB" class="form-label">Alternativa B</label>
-                        <input type="text" name="alternativaB" class="form-control">
+                        <label for="altB" class="form-label">Alternativa B</label>
+                        <input type="text" name="altB" class="form-control">
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="alternativaC" class="form-label">Alternativa C</label>
-                        <input type="text" name="alternativaC" class="form-control">
+                        <label for="altC" class="form-label">Alternativa C</label>
+                        <input type="text" name="altC" class="form-control">
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="alternativaD" class="form-label">Alternativa D</label>
-                        <input type="text" name="alternativaD" class="form-control">
+                        <label for="altD" class="form-label">Alternativa D</label>
+                        <input type="text" name="altD" class="form-control">
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="alternativaE" class="form-label">Alternativa E</label>
-                        <input type="text" name="alternativaE" class="form-control">
+                        <label for="altE" class="form-label">Alternativa E</label>
+                        <input type="text" name="altE" class="form-control">
                     </div>
                     
                     <div class="col-md-6">
@@ -154,7 +154,7 @@
             const dados = Object.fromEntries(formData.entries());
             dados.op = 'newQuestion';
 
-            fetch('/api/server', {
+            fetch('/api/questions/newQuestion', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(dados)

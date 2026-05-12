@@ -1,31 +1,32 @@
 import bd from '../../lib/bd.js';
+import clientPromise from "../../lib/mongodb.js";
 
-export default function handler(req, res) {
-    const {banca, ano, orgao, cargo, enunciado, altA, altB, altC, altD, altE, resposta, explicacao, nivel} = req.body;
-    const newId = bd.questions.length > 0 ? Math.max(...bd.questions.map(q => q.id)) + 1 : 1;
+export default async function handler(req, res) {
+    const {banca, ano, orgao, cargo, materia, submateria, enunciado, altA, altB, altC, altD, altE, correct, explicacao, nivel} = req.body;
     const validation = [altA, altB, altC, altD, altE];
 
     const alternativasProcessadas = validation.filter(item => item && item.trim() !== "");
 
-    // if (alternativasProcessadas.length < 2) {
-    //     return res.status(400).json({ msg: "A questão deve ter pelo menos 2 alternativas preenchidas." });
-    // }
+    const client = await clientPromise;
+    const db = client.db("questlog");
 
-    const newQuestion = {
-        id: newId,
+    const result = await db.collection("questions").insertOne({
         banca,
         ano: Number(ano),
         cargo,
+        orgao,
+        materia,
+        submateria,
         enunciado,
         alternativas: alternativasProcessadas, 
-        resposta,
+        resposta: correct,
         nivel,
         explicacao
-    };
+    })
     
-    bd.questions.push(newQuestion);
-    bd.progressUser.forEach(progress => {
-        progress.queue.push(newQuestion.id);
-    });
+    // bd.progressUser.forEach(progress => {
+    //     progress.queue.push(newQuestion.id);
+    // });
+
     res.status(201).json({msg: 'Questão Cadastrada com sucesso !'});
 }

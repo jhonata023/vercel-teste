@@ -8,8 +8,6 @@ export async function POST() {
         .collection("users")
         .find({})
         .toArray();
-
-    console.log(usuarios);
     
     return Response.json(usuarios);
 }
